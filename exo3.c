@@ -97,14 +97,14 @@ void mult_mat_vector (matrix M, vector b, vector c)
   register double r ;
   
   for ( i = 0 ; i < N ; i = i + 1)
+  {
+    r = 0.0 ;
+    for (j = 0 ; j < N ; j = j + 1)
     {
-      r = 0.0 ;
-      for (j = 0 ; j < N ; j = j + 1)
-	{
-	  r += M [i][j] * b [j] ;
-	}
-      c [i] = r ;
+      r += M [i][j] * b [j] ;
     }
+    c [i] = r ;
+  }
   return ;
 }
 
@@ -114,6 +114,19 @@ void mult_mat_vector_tri_inf (matrix M, vector b, vector c)
     this function is sequential (no OpenMP directive)
     Computes the Multiplication between the vector b and the Triangular Lower Matrix
   */ 
+  register unsigned int i ;
+  register unsigned int j ;
+  register double r ;
+  
+  for ( i = 0 ; i < N ; i = i + 1)
+  {
+    r = 0.0 ;
+    for (j = 0 ; j <= i ; j = j + 1)
+    {
+      r += M [i][j] * b [j] ;
+    }
+    c [i] = r ;
+  }
   return ;
 }
 
@@ -311,4 +324,3 @@ int main ()
   return 0;
   
 }
-
