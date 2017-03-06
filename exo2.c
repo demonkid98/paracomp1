@@ -8,7 +8,6 @@
 #define MEGA 1000000
 static long long unsigned int experiments [NBEXPERIMENTS] ;
 static long long unsigned int time_exp [NBEXPERIMENTS] ;
-static long long unsigned int flops [NBEXPERIMENTS] ;
 
 
 #define N              512
@@ -31,7 +30,6 @@ long long unsigned int average (long long unsigned int *exps)
       s = s + exps [i] ;
     }
 
-  printf(">> sum: %ld\n", s);
   return s / (NBEXPERIMENTS-2) ;
 }
 
@@ -352,13 +350,12 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
 
   // printf ("OpenMP static loop %Ld cycles\n", av-residu) ;
-  printf ("OpenMP static loop %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP static loop %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
 
   init_vector (a, 1.0) ;
   init_vector (b, 2.0) ;
@@ -376,13 +373,12 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
 
   // printf ("OpenMP dynamic loop %Ld cycles\n", av-residu) ;
-  printf ("OpenMP dynamic loop %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP dynamic loop %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
 
   printf ("==============================================================\n") ;
 
@@ -400,13 +396,12 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
 
   // printf ("OpenMP static loop dot %e: %Ld cycles\n", r, av-residu) ;
-  printf ("OpenMP static loop %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP static loop %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
 
   init_vector (a, 1.0) ;
   init_vector (b, 2.0) ;
@@ -420,13 +415,12 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
   
   // printf ("OpenMP dynamic loop dot %e: %Ld cycles\n", r, av-residu) ;
-  printf ("OpenMP dynamic loop dot %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP dynamic loop dot %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
 
   init_vector (a, 1.0) ;
   init_vector (b, 2.0) ;
@@ -440,13 +434,12 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
   
   // printf ("OpenMP static unrolled loop dot %e: %Ld cycles\n", r, av-residu) ;
-  printf ("OpenMP static unrolled loop dot %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP static unrolled loop dot %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
   
   printf ("=============================================================\n") ;
 
@@ -464,13 +457,12 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
   
   // printf ("OpenMP static loop MultMatVect0: %Ld cycles\n", av-residu) ;
-  printf ("OpenMP sequential MultMatVect0: %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP sequential MultMatVect0: %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
 
   init_matrix (M1, 1.0) ;
   init_vector (b, 2.0) ;
@@ -484,13 +476,12 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
  
   // printf ("OpenMP static loop MultMatVect1: %Ld cycles\n", av-residu) ;
-  printf ("OpenMP static loop MultMatVect1: %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP static loop MultMatVect1: %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
 
   init_matrix (M1, 1.0) ;
   init_vector (b, 2.0) ;
@@ -504,13 +495,12 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
 
   // printf ("OpenMP static loop MultMatVect2: %Ld cycles\n", av-residu) ;
-  printf ("OpenMP static loop MultMatVect2: %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP static loop MultMatVect2: %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
 
   init_matrix (M1, 1.0) ;
   init_vector (b, 2.0) ;
@@ -524,13 +514,12 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
  
   // printf ("OpenMP static loop MultMatVect3: %Ld cycles\n", av-residu) ;
-  printf ("OpenMP static loop MultMatVect3: %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP static loop MultMatVect3: %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
 
   printf ("==============================================================\n") ;
 
@@ -548,13 +537,12 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
 
   // printf ("Sequential matrice vector multiplication:\t %Ld cycles\n", av-residu) ;
-  printf ("Sequential matrix vector multiplication: %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("Sequential matrix vector multiplication: %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
   
   init_matrix (M1, 1.0) ;
   init_matrix (M2, 2.0) ;
@@ -568,12 +556,13 @@ int main ()
      
       end = _rdtsc () ;
       experiments [exp] = end - start ;
+      time_exp [exp] = experiments[exp] / FREQ;
     }
 
   av = average (experiments) ;
 
   // printf ("OpenMP static loop MultMatVect1:\t\t %Ld cycles\n", av-residu) ;
-  printf ("OpenMP static loop MultMatVect1: %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP static loop MultMatVect1: %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
 
   init_matrix (M1, 1.0) ;
   init_matrix (M2, 2.0) ;
@@ -587,14 +576,13 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
     
 
   // printf ("OpenMP unrolled loop MultMatMat2: %Ld cycles\n", av-residu) ;
-  printf ("OpenMP static unrolled loop MultMatMat2: %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP static unrolled loop MultMatMat2: %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
 
   init_matrix (M1, 1.0) ;
   init_matrix (M2, 2.0) ;
@@ -608,15 +596,13 @@ int main ()
       end = _rdtsc () ;
       experiments [exp] = end - start ;
       time_exp [exp] = experiments[exp] / FREQ;
-      flops[exp] = N * MEGA / time_exp[exp]; // FLOPS
     }
 
   av = average (experiments) ;
 
   // printf ("OpenMP Tiled loop MultMatMat3: %Ld cycles\n", av-residu) ;
-  printf ("OpenMP Tiled loop MultMatMat3: %Ld cycles, %Ld us, %Ld FLOPS\n", av - residu, average(time_exp), average(flops)) ;
+  printf ("OpenMP Tiled loop MultMatMat3: %Ld cycles, %Ld us\n", av - residu, average(time_exp)) ;
   
   return 0;
   
 }
-
